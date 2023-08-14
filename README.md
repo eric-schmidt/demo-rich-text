@@ -2,6 +2,11 @@
 
 A Next.js-based demo showcasing how to render Contentful Rich Text fields -- using both REST and GraphQL APIs.
 
+## Key Files
+
+- REST-based example: `app/blog/rest/[slug]/page.tsx`.
+- GraphQL-based example: `app/blog/graphql/[slug]/page.tsx`.
+
 ## Getting Started
 
 1. Clone this repo.
