@@ -73,6 +73,15 @@ const renderOptions = (links: LinkTypes): object => {
           default:
         }
       },
+      [BLOCKS.TABLE]: (node: Block, children: BLOCKS.TABLE_ROW) => {
+        console.log(children);
+
+        return (
+          <table className="mx-auto table-auto border-separate border-spacing-2 border border-slate-500">
+            {children}
+          </table>
+        );
+      },
       [BLOCKS.EMBEDDED_ASSET]: (node: Block) => {
         const asset = assetMap.get(node.data.target.sys.id);
         if (asset.contentType.includes("image")) {
