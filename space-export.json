@@ -377,6 +377,87 @@
           "omitted": false
         }
       ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "zitd8na8v90i"
+          }
+        },
+        "id": "imageWrapper",
+        "type": "ContentType",
+        "createdAt": "2023-11-08T15:16:02.978Z",
+        "updatedAt": "2023-11-08T16:46:34.001Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 3,
+        "publishedAt": "2023-11-08T16:46:34.001Z",
+        "firstPublishedAt": "2023-11-08T15:16:03.255Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0P01aRH5LafHI66y5GM1WV"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0P01aRH5LafHI66y5GM1WV"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0P01aRH5LafHI66y5GM1WV"
+          }
+        }
+      },
+      "displayField": "internalTitle",
+      "name": "Image Wrapper",
+      "description": "",
+      "fields": [
+        {
+          "id": "internalTitle",
+          "name": "Internal Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "image",
+          "name": "Image",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        }
+      ]
     }
   ],
   "tags": [
@@ -623,6 +704,62 @@
           "widgetNamespace": "app"
         }
       ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "zitd8na8v90i",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 4,
+        "createdAt": "2023-11-08T15:16:03.417Z",
+        "createdBy": {
+          "sys": {
+            "id": "0P01aRH5LafHI66y5GM1WV",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2023-11-08T16:46:34.427Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0P01aRH5LafHI66y5GM1WV",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "imageWrapper",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "internalTitle",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "image",
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
     }
   ],
   "entries": [
@@ -642,7 +779,7 @@
         "id": "7Ba0v5oPmAxzKY7o4TSOJ8",
         "type": "Entry",
         "createdAt": "2022-08-15T15:18:42.675Z",
-        "updatedAt": "2023-08-04T15:44:27.586Z",
+        "updatedAt": "2023-11-08T16:04:57.055Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -650,8 +787,8 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 92,
-        "publishedAt": "2023-07-31T22:58:49.432Z",
+        "publishedVersion": 106,
+        "publishedAt": "2023-11-08T16:04:57.055Z",
         "firstPublishedAt": "2022-08-15T15:22:43.203Z",
         "createdBy": {
           "sys": {
@@ -667,8 +804,8 @@
             "id": "0P01aRH5LafHI66y5GM1WV"
           }
         },
-        "publishedCounter": 19,
-        "version": 96,
+        "publishedCounter": 22,
+        "version": 107,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -809,7 +946,7 @@
                             "content": [
                               {
                                 "nodeType": "text",
-                                "value": "Column 1, Row 1",
+                                "value": "Column 1, Row 1 ",
                                 "marks": [
                                 ],
                                 "data": {
@@ -1082,7 +1219,29 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": " est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam.  Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Sed posuere consectetur est at lobortis. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+                    "value": " est at lobortis. ",
+                    "marks": [
+                    ],
+                    "data": {
+                    }
+                  },
+                  {
+                    "nodeType": "embedded-entry-inline",
+                    "data": {
+                      "target": {
+                        "sys": {
+                          "id": "3605JZSPaYQNkolvQ05T6r",
+                          "type": "Link",
+                          "linkType": "Entry"
+                        }
+                      }
+                    },
+                    "content": [
+                    ]
+                  },
+                  {
+                    "nodeType": "text",
+                    "value": "Cras justo odio, dapibus ac facilisis in, egestas eget quam.  Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Sed posuere consectetur est at lobortis. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
                     "marks": [
                     ],
                     "data": {
@@ -1365,6 +1524,81 @@
           "en-US": "#ff0000"
         }
       }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "zitd8na8v90i"
+          }
+        },
+        "id": "3605JZSPaYQNkolvQ05T6r",
+        "type": "Entry",
+        "createdAt": "2023-11-08T15:16:23.664Z",
+        "updatedAt": "2023-11-08T16:27:06.256Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 5,
+        "publishedAt": "2023-11-08T16:27:06.256Z",
+        "firstPublishedAt": "2023-11-08T15:16:29.729Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0P01aRH5LafHI66y5GM1WV"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0P01aRH5LafHI66y5GM1WV"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0P01aRH5LafHI66y5GM1WV"
+          }
+        },
+        "automationTags": [
+        ],
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "imageWrapper"
+          }
+        }
+      },
+      "fields": {
+        "internalTitle": {
+          "en-US": "Emoji Happy"
+        },
+        "image": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "600zuaLdZjEvAh2lfzOQOP"
+            }
+          }
+        }
+      }
     }
   ],
   "assets": [
@@ -1489,6 +1723,80 @@
         },
         "description": {
           "en-US": ""
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "zitd8na8v90i"
+          }
+        },
+        "id": "600zuaLdZjEvAh2lfzOQOP",
+        "type": "Asset",
+        "createdAt": "2023-11-08T16:26:47.978Z",
+        "updatedAt": "2023-11-08T16:26:57.642Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 3,
+        "publishedAt": "2023-11-08T16:26:57.642Z",
+        "firstPublishedAt": "2023-11-08T16:26:57.642Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0P01aRH5LafHI66y5GM1WV"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0P01aRH5LafHI66y5GM1WV"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0P01aRH5LafHI66y5GM1WV"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Emoji Happy"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/zitd8na8v90i/600zuaLdZjEvAh2lfzOQOP/6525b657ae8ce4a3f6a1f4b838b5c95c/Emoji_Happy.png",
+            "details": {
+              "size": 31020,
+              "image": {
+                "width": 886,
+                "height": 834
+              }
+            },
+            "fileName": "Emoji Happy.png",
+            "contentType": "image/png"
+          }
         }
       }
     }
