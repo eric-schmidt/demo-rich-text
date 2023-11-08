@@ -42,6 +42,17 @@ const renderOptions = (links: LinkTypes): object => {
               </span>
             );
 
+          case "ImageWrapper":
+            return (
+              <Image
+                style={{ display: "inline" }}
+                src={entry.image.url}
+                width="25"
+                height="25"
+                alt={entry.internalTitle}
+              />
+            );
+
           default:
         }
       },
@@ -100,7 +111,7 @@ const renderOptions = (links: LinkTypes): object => {
   };
 };
 
-export const GraphQLBlogPost = async ({ params }: BlogPostParams) => {
+const GraphQLBlogPost = async ({ params }: BlogPostParams) => {
   const posts = await getPosts(params.slug);
 
   return (
@@ -117,74 +128,82 @@ export const GraphQLBlogPost = async ({ params }: BlogPostParams) => {
   );
 };
 
-export const getPosts = async (slug: string) => {
+const getPosts = async (slug: string) => {
   const variables = {
     slug,
   };
 
   const query = `
-  query GetBlogPostBySlug($slug: String!) {
-    blogPostCollection (limit: 1, where: {
-      slug: $slug
-    }) {
-      items {
-        sys {
-          id
-        }
-        title
-        body {
-          json
-          links {
-            entries {
-              inline {
-                __typename
-                sys {
-                  id
+    query GetBlogPostBySlug($slug: String!) {
+      blogPostCollection(limit: 1, where: { slug: $slug }) {
+        items {
+          sys {
+            id
+          }
+          title
+          body {
+            json
+            links {
+              entries {
+                inline {
+                  __typename
+                  sys {
+                    id
+                  }
+                  ...FormattedTextFields
+                  ...ImageWrapperFields
                 }
-                ...on FormattedText {
-                  text
-                  color
-                } 
+                block {
+                  __typename
+                  sys {
+                    id
+                  }
+                  ...CodeBlockFields
+                  ...VideoEmbedFields
+                }
               }
-              block {
-                __typename
-                sys {
-                  id
+              assets {
+                block {
+                  sys {
+                    id
+                  }
+                  url
+                  title
+                  width
+                  height
+                  description
+                  contentType
                 }
-                ...CodeBlockFields
-                ...VideoEmbedFields
-              }
-            }
-            assets {
-              block {
-                sys {
-                  id
-                }
-                url
-                title
-                width
-                height
-                description
-                contentType
               }
             }
           }
         }
       }
-    } 
-  }
-  
-  fragment CodeBlockFields on CodeBlock {
-    title
-    description
-    language
-    code
-  }
-  
-  fragment VideoEmbedFields on VideoEmbed {
-    title
-    embedUrl
-  }
+    }
+    
+    fragment CodeBlockFields on CodeBlock {
+      title
+      description
+      language
+      code
+    }
+    
+    fragment FormattedTextFields on FormattedText {
+      text
+      color
+    }
+    
+    fragment ImageWrapperFields on ImageWrapper {
+      internalTitle
+      image {
+        url
+      }
+    }
+    
+    fragment VideoEmbedFields on VideoEmbed {
+      title
+      embedUrl
+    }  
   `;
 
   return await fetch(

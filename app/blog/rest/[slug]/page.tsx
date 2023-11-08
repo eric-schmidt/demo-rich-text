@@ -11,7 +11,7 @@ import {
   Inline,
   Document,
 } from "@contentful/rich-text-types";
-import { BlogPost, BlogPostParams, LinkTypes } from "../../../../types";
+import { BlogPostParams } from "../../../../types";
 
 const getPosts = async (slug: string) => {
   const client = createClient({
@@ -30,7 +30,7 @@ const getPosts = async (slug: string) => {
   }
 };
 
-export const RestBlogPost = async ({ params }: BlogPostParams) => {
+const RestBlogPost = async ({ params }: BlogPostParams) => {
   const posts = await getPosts(params.slug);
 
   const renderOptions = {
@@ -48,6 +48,18 @@ export const RestBlogPost = async ({ params }: BlogPostParams) => {
                 {node.data.target.fields.text}
               </span>
             );
+
+          case "imageWrapper":
+            return (
+              <Image
+                style={{ display: "inline" }}
+                src={`https:${node.data.target.fields.image.fields.file.url}`}
+                width="25"
+                height="25"
+                alt={node.data.target.fields.internalTitle}
+              />
+            );
+
           default:
         }
       },
