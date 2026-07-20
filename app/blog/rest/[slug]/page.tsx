@@ -1,4 +1,6 @@
+import { Fragment, ReactNode } from "react";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { createClient } from "contentful";
 import {
   documentToReactComponents,
@@ -13,29 +15,35 @@ import {
 } from "@contentful/rich-text-types";
 import { BlogPostParams } from "../../../../types";
 
+const warnUnknown = (kind: string, typename: unknown) => {
+  if (process.env.NODE_ENV !== "production") {
+    console.warn(`Unhandled ${kind} content type: ${String(typename)}`);
+  }
+};
+
 const getPosts = async (slug: string) => {
   const client = createClient({
     space: process.env.CONTENTFUL_SPACE_ID!,
     accessToken: process.env.CONTENTFUL_DELIVERY_KEY!,
   });
 
-  try {
-    const response = await client.getEntries({
-      content_type: "blogPost",
-      "fields.slug": slug,
-    });
-    return response.items;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await client.getEntries({
+    content_type: "blogPost",
+    "fields.slug": slug,
+  });
+  return response.items;
 };
 
 const RestBlogPost = async ({ params }: BlogPostParams) => {
   const posts = await getPosts(params.slug);
 
-  const renderOptions = {
+  if (!posts.length) {
+    notFound();
+  }
+
+  const renderOptions: Options = {
     renderNode: {
-      [INLINES.EMBEDDED_ENTRY]: (node: Inline) => {
+      [INLINES.EMBEDDED_ENTRY]: (node: Block | Inline) => {
         switch (node.data.target.sys.contentType.sys.id) {
           case "formattedText":
             return (
@@ -54,23 +62,25 @@ const RestBlogPost = async ({ params }: BlogPostParams) => {
               <Image
                 style={{ display: "inline" }}
                 src={`https:${node.data.target.fields.image.fields.file.url}`}
-                width="25"
-                height="25"
+                width={25}
+                height={25}
                 alt={node.data.target.fields.internalTitle}
               />
             );
 
           default:
+            warnUnknown("inline entry", node.data.target.sys.contentType.sys.id);
+            return null;
         }
       },
-      [BLOCKS.TABLE]: (node: Block, children: BLOCKS.TABLE_ROW) => {
+      [BLOCKS.TABLE]: (_node: Block | Inline, children: ReactNode) => {
         return (
           <table className="mx-auto table-auto border-separate border-spacing-2 border border-slate-500">
             {children}
           </table>
         );
       },
-      [BLOCKS.EMBEDDED_ASSET]: (node: Block) => {
+      [BLOCKS.EMBEDDED_ASSET]: (node: Block | Inline) => {
         if (node.data.target.fields.file.contentType.includes("image")) {
           return (
             <Image
@@ -82,8 +92,10 @@ const RestBlogPost = async ({ params }: BlogPostParams) => {
             />
           );
         }
+
+        return null;
       },
-      [BLOCKS.EMBEDDED_ENTRY]: (node: Block) => {
+      [BLOCKS.EMBEDDED_ENTRY]: (node: Block | Inline) => {
         switch (node.data.target.sys.contentType.sys.id) {
           case "codeBlock":
             return (
@@ -107,6 +119,8 @@ const RestBlogPost = async ({ params }: BlogPostParams) => {
             );
 
           default:
+            warnUnknown("block entry", node.data.target.sys.contentType.sys.id);
+            return null;
         }
       },
     },
@@ -115,13 +129,14 @@ const RestBlogPost = async ({ params }: BlogPostParams) => {
   return (
     <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
       <header className="App-header">
-        {posts &&
-          posts.map((post) =>
-            documentToReactComponents(
+        {posts.map((post) => (
+          <Fragment key={post.sys.id}>
+            {documentToReactComponents(
               post.fields.body as Document,
-              renderOptions as Options
-            )
-          )}
+              renderOptions,
+            )}
+          </Fragment>
+        ))}
       </header>
     </div>
   );
