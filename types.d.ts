@@ -42,7 +42,7 @@ export type LinkTypes = {
 };
 
 export type BlogPostParams = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };

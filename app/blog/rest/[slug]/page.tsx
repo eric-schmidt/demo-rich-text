@@ -35,7 +35,8 @@ const getPosts = async (slug: string) => {
 };
 
 const RestBlogPost = async ({ params }: BlogPostParams) => {
-  const posts = await getPosts(params.slug);
+  const { slug } = await params;
+  const posts = await getPosts(slug);
 
   if (!posts.length) {
     notFound();
@@ -76,7 +77,7 @@ const RestBlogPost = async ({ params }: BlogPostParams) => {
       [BLOCKS.TABLE]: (_node: Block | Inline, children: ReactNode) => {
         return (
           <table className="mx-auto table-auto border-separate border-spacing-2 border border-slate-500">
-            {children}
+            <tbody>{children}</tbody>
           </table>
         );
       },
