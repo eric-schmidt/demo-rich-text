@@ -16,4 +16,4 @@ A Next.js-based demo showcasing how to render Contentful Rich Text fields -- usi
 5. Install dependencies via `npm install`.
 6. Run the development server via `npm run dev`.
 7. Test out REST-based page by navigating to http://localhost:3000/blog/rest/[ENTRY SLUG].
-8. Test out GraphQL-based page by navigating to https://localhost:3000/blog/graphql/[ENTRY SLUG].
+8. Test out GraphQL-based page by navigating to http://localhost:3000/blog/graphql/[ENTRY SLUG].
