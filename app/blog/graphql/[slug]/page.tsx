@@ -99,6 +99,7 @@ const getPosts = async (slug: string): Promise<BlogPost[]> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ query, variables }),
+      next: { revalidate: 60 },
     }
   );
 
@@ -202,7 +203,7 @@ const renderOptions = (links: LinkTypes): Options => {
       [BLOCKS.TABLE]: (_node: Block | Inline, children: ReactNode) => {
         return (
           <table className="mx-auto table-auto border-separate border-spacing-2 border border-slate-500">
-            {children}
+            <tbody>{children}</tbody>
           </table>
         );
       },
@@ -229,7 +230,8 @@ const renderOptions = (links: LinkTypes): Options => {
 };
 
 const GraphQLBlogPost = async ({ params }: BlogPostParams) => {
-  const posts = await getPosts(params.slug);
+  const { slug } = await params;
+  const posts = await getPosts(slug);
 
   if (!posts.length) {
     notFound();
